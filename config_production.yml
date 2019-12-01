@@ -1,0 +1,14 @@
+database:
+  driver: "mysql"
+  dbname: "db_wlis"
+  username: "coj"
+  password: "wlis@Appleoydgm8"
+  host: "localhost"
+  port: "3306"
+
+server:
+  port: "80"
+
+gateway:
+  ip: "http://10.120.180.207"
+  ipIntra: "http://10.1.2.207"

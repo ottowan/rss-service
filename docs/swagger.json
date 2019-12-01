@@ -1,0 +1,1489 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Rest API document of Watchlist Information System",
+        "title": "Watchlist Information System API",
+        "termsOfService": "COJ-App Team",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "10.1.2.124:9005",
+    "basePath": "/api/v1",
+    "paths": {
+        "/healthcheck": {
+            "get": {
+                "description": "ตรวจสอบสถานะการ online ของระบบ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Healthcheck API"
+                ],
+                "summary": "ตรวจสอบสถานะการ online ของระบบ",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/routers.HealthcheckModels"
+                        }
+                    }
+                }
+            }
+        },
+        "/immi": {
+            "get": {
+                "description": "recheck คำสั่งห้ามฯ ตามวันที่สร้างหรือแก้ไขคำสั่งห้ามฯ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตม.ค้นหาคำสั่งฯ"
+                ],
+                "summary": "ค้นหาคำสั่งห้ามฯ ตามวันที่สร้างหรือแก้ไขคำสั่งห้ามฯ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "วันที่สร้างหรือแก้ไขคำสั่งห้ามฯ",
+                        "name": "updated_at",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DataImmi"
+                        }
+                    }
+                }
+            }
+        },
+        "/letter": {
+            "get": {
+                "description": "เรียกดูรายการคำสั่งห้ามฯฯ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "เรียกดูรายการคำสั่งห้ามฯฯ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสศาล",
+                        "name": "court_code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "เลขบัตรประชาชนหรือหนังสือเดินทาง",
+                        "name": "id_card",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ชื่อ นามสกุล Ex. จำเลย เลยจำ",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "เลขที่หนังสือ",
+                        "name": "letter_num",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ช่วงวันที่ออกหนังสือ - เริ่มต้น",
+                        "name": "d_start",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ช่วงวันที่ออกหนังสือ - สิ้นสุด",
+                        "name": "d_end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "เลขคดีดำ",
+                        "name": "case_black",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ประเภทหนังสือ",
+                        "name": "letter_type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DataLetter"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "เพิ่มข้อมูลคำสั่งห้ามฯ \u003cbr\u003e*** Required \u003cbr\u003e\"court_code\", \"letter_num\", \"created_uid\", \"created_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "เพิ่มข้อมูลคำสั่งห้ามฯ",
+                "parameters": [
+                    {
+                        "description": "Create Letter",
+                        "name": "letter",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Letter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Letter"
+                        }
+                    }
+                }
+            }
+        },
+        "/letter/{id}": {
+            "get": {
+                "description": "ดูข้อมูลคำสั่งห้ามฯ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "ดูข้อมูลคำสั่งห้ามฯฯ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Letter"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "แก้ไขข้อมูลคำสั่งห้ามฯ \u003cbr\u003e*** Required \u003cbr\u003e\"updated_uid\", \"updated_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "แก้ไขข้อมูลคำสั่งห้ามฯ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Letter",
+                        "name": "letter",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Letter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Letter"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "ลบข้อมูลคำสั่งห้ามฯ \u003cbr\u003e\u003cbr\u003e*** Required json \u003cbr\u003e\"deleted_uid\", \"deleted_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "ลบข้อมูลคำสั่งห้ามฯ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DefaultMessage"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "อัพโหลดไฟล์คำสั่งห้ามฯ \u003cbr\u003e*** Required \u003cbr\u003e\u003cbr\u003e\"court_code\", \"letter_num\", \"updated_uid\", \"updated_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "คำสั่งห้ามฯ"
+                ],
+                "summary": "อัพโหลดไฟล์คำสั่งห้ามฯ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "File",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "รหัสศาล",
+                        "name": "court_code",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "เลขที่หนังสือ",
+                        "name": "letter_num",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID ผู้แก้ไขข้อมูล",
+                        "name": "updated_uid",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ชื่อผู้แก้ไขข้อมูล",
+                        "name": "updated_uname",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DefaultMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/report/permonth": {
+            "get": {
+                "description": "รายงานคำสั่งห้ามฯ รายเดือน",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "รายงาน"
+                ],
+                "summary": "รายงานคำสั่งห้ามฯ รายเดือน",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสศาล",
+                        "name": "court_code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "ปี ex 2018",
+                        "name": "year",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "เดือน ex 09",
+                        "name": "month",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ReportLetter"
+                        }
+                    }
+                }
+            }
+        },
+        "/setting": {
+            "get": {
+                "description": "เรียกดูรายการตั้งค่าหนังสือของศาล",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าหนังสือ"
+                ],
+                "summary": "เรียกดูรายการตั้งค่าหนังสือ",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "รหัสศาล",
+                        "name": "court_code",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DataSetting"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "เพิ่มข้อมูลการตั้งค่าหนังสือ \u003cbr\u003e*** Required \u003cbr\u003e\"court_code\", \"setting_name\", \"created_uid\", \"created_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าหนังสือ"
+                ],
+                "summary": "เพิ่มข้อมูลการตั้งค่าหนังสือ",
+                "parameters": [
+                    {
+                        "description": "Create Setting",
+                        "name": "setting",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Setting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Setting"
+                        }
+                    }
+                }
+            }
+        },
+        "/setting/{id}": {
+            "get": {
+                "description": "ดูข้อมูลการตั้งค่าหนังสือของศาล",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าหนังสือ"
+                ],
+                "summary": "ดูข้อมูลการตั้งค่าหนังสือ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Setting"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "แก้ไขข้อมูลการตั่งค่าหนังสือ \u003cbr\u003e*** Required \u003cbr\u003e\"updated_uid\", \"updated_uname\"",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าหนังสือ"
+                ],
+                "summary": "แก้ไขข้อมูลการตั้งค่าหนังสือ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Setting",
+                        "name": "setting",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Setting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Setting"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "ลบข้อมูลการตั่งค่าหนังสือ",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าหนังสือ"
+                ],
+                "summary": "ลบข้อมูลการตั้งค่าหนังสือ",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DefaultMessage"
+                        }
+                    }
+                }
+            }
+        },
+        "/ver": {
+            "get": {
+                "description": "ดูข้อมูลการตั้งค่าโปรแกรม",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ตั้งค่าโปรแกรม"
+                ],
+                "summary": "ดูข้อมูลการตั้งค่าโปรแกรม",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AppConfig"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Accused": {
+            "type": "object",
+            "properties": {
+                "birth_date": {
+                    "description": "วันเกิด",
+                    "type": "string",
+                    "example": "1990-09-22T00:00:00Z"
+                },
+                "created_at": {
+                    "description": "วันที่สร้างข้อมูล",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "display_name": {
+                    "description": "ID",
+                    "type": "string",
+                    "example": "นายจำเลย เลยจำ"
+                },
+                "en_first_name": {
+                    "description": "ชื่อจำเลย ภาษาอังกฤษ",
+                    "type": "string",
+                    "example": "accused"
+                },
+                "en_last_name": {
+                    "description": "นามสกุล ภาษาอังกฤษ",
+                    "type": "string",
+                    "example": "lastname"
+                },
+                "en_middle_name": {
+                    "description": "ชื่อกลาง ภาษาอังกฤษ",
+                    "type": "string",
+                    "example": "de"
+                },
+                "en_title_name": {
+                    "description": "คำนำหน้าชื่อ ภาษาอังกฤษ",
+                    "type": "string",
+                    "example": "Mr."
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "id_card_num": {
+                    "description": "เลขบัตร",
+                    "type": "string",
+                    "example": "1234567890123"
+                },
+                "id_card_type": {
+                    "description": "ประเภทบัตร 1=บัตรประชาชน 2=หนังสือเดินทาง",
+                    "type": "integer",
+                    "example": 1
+                },
+                "id_card_type_desc": {
+                    "description": "รายละเอียดประเภทบัตร",
+                    "type": "object",
+                    "$ref": "#/definitions/models.IdCardTypeDesc"
+                },
+                "nationality": {
+                    "description": "สัญชาติ",
+                    "type": "string",
+                    "example": "ไทย"
+                },
+                "seq": {
+                    "description": "ลำดับ - จำเลยที่ 1",
+                    "type": "string",
+                    "example": "จำเลยที่ 1"
+                },
+                "sex": {
+                    "description": "เพศ M=ชาย F=หญิง",
+                    "type": "string",
+                    "example": "M"
+                },
+                "th_first_name": {
+                    "description": "ชื่อจำเลย ภาษาไทย",
+                    "type": "string",
+                    "example": "จำเลย"
+                },
+                "th_last_name": {
+                    "description": "นามสกุล ภาษาไทย",
+                    "type": "string",
+                    "example": "สกุล"
+                },
+                "th_middle_name": {
+                    "description": "ชื่อกลาง ภาษาไทย",
+                    "type": "string",
+                    "example": "เดอ"
+                },
+                "th_title_name": {
+                    "description": "คำนำหน้าชื่อ ภาษาไทย",
+                    "type": "string",
+                    "example": "นาย"
+                },
+                "updated_at": {
+                    "description": "วันที่แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                }
+            }
+        },
+        "models.AppConfig": {
+            "type": "object",
+            "properties": {
+                "app_date": {
+                    "description": "วันที่แก้ไขล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "app_name": {
+                    "description": "ชื่อโปรแกรม",
+                    "type": "string",
+                    "example": "My App"
+                },
+                "app_version": {
+                    "description": "version",
+                    "type": "string",
+                    "example": "1.0"
+                }
+            }
+        },
+        "models.CaseFaultTypeDesc": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "ประเภทความ",
+                    "type": "string",
+                    "example": "อาญา"
+                }
+            }
+        },
+        "models.Court": {
+            "type": "object",
+            "properties": {
+                "court_code": {
+                    "description": "รหัสศาล",
+                    "type": "string",
+                    "example": "0000011"
+                },
+                "department_id": {
+                    "description": "รหัสภาค",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "ชื่อศาล",
+                    "type": "string",
+                    "example": "ชื่อศาล"
+                }
+            }
+        },
+        "models.DataImmi": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "ข้อมูล",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Immi"
+                    }
+                },
+                "status": {
+                    "description": "รหัสสถานะการเรียก service",
+                    "type": "integer",
+                    "example": 200
+                },
+                "total": {
+                    "description": "จำนวน Rows ทั้งหมด",
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "models.DataLetter": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "ข้อมูล",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Letter"
+                    }
+                },
+                "status": {
+                    "description": "รหัสสถานะการเรียก service",
+                    "type": "integer",
+                    "example": 200
+                },
+                "total": {
+                    "description": "จำนวน Rows ทั้งหมด",
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "models.DataSetting": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "ข้อมูล",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Setting"
+                    }
+                },
+                "status": {
+                    "description": "รหัสสถานะการเรียก service",
+                    "type": "integer",
+                    "example": 200
+                },
+                "total": {
+                    "description": "จำนวน Rows ทั้งหมด",
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "models.DefaultMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "message example"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 200
+                }
+            }
+        },
+        "models.IdCardTypeDesc": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "ประเภทบัตร",
+                    "type": "string",
+                    "example": "บัตรประชาขน"
+                }
+            }
+        },
+        "models.Immi": {
+            "type": "object",
+            "properties": {
+                "accused_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiAccusedList"
+                    }
+                },
+                "black_no": {
+                    "description": "เลขคดีดำ",
+                    "type": "string"
+                },
+                "charge": {
+                    "type": "string",
+                    "example": "ลัก ขโมย"
+                },
+                "co_plaintiff_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiCoPlaintiffList"
+                    }
+                },
+                "country": {
+                    "type": "string"
+                },
+                "court_code": {
+                    "type": "string"
+                },
+                "doc_attachment_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiDocAttachmentList"
+                    }
+                },
+                "doc_link_list": {
+                    "description": "ImmiWlpicList         []ImmiWlpicList         `json:\"wlpic_list\" `",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiDocLinkList"
+                    }
+                },
+                "fault_type": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "id": {
+                    "description": "id",
+                    "type": "integer"
+                },
+                "office_phone": {
+                    "type": "string"
+                },
+                "officer_name": {
+                    "type": "string"
+                },
+                "permit_end_date": {
+                    "type": "string"
+                },
+                "permit_start_date": {
+                    "type": "string"
+                },
+                "plaintiff_list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiPlaintiffList"
+                    }
+                },
+                "red_no": {
+                    "description": "เลขคดีแดง",
+                    "type": "string"
+                },
+                "ref_no_two": {
+                    "description": "หมำยเลขหนังสืออ้ำงอิง - เลขหนังสือ",
+                    "type": "string"
+                },
+                "start_command_date": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "temp_permits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ImmiTempPermits"
+                    }
+                }
+            }
+        },
+        "models.ImmiAccusedList": {
+            "type": "object",
+            "properties": {
+                "accused_en_firstname": {
+                    "type": "string"
+                },
+                "accused_en_lastname": {
+                    "type": "string"
+                },
+                "accused_en_middlename": {
+                    "type": "string"
+                },
+                "accused_id": {
+                    "type": "integer"
+                },
+                "accused_id_card": {
+                    "type": "string"
+                },
+                "accused_th_firstname": {
+                    "type": "string"
+                },
+                "accused_th_lastname": {
+                    "type": "string"
+                },
+                "accused_th_middlename": {
+                    "type": "string"
+                },
+                "birth_date": {
+                    "type": "string"
+                },
+                "birth_month": {
+                    "type": "string"
+                },
+                "birth_year": {
+                    "type": "string"
+                },
+                "document_type": {
+                    "type": "integer"
+                },
+                "nationality_code": {
+                    "type": "string"
+                },
+                "sex": {
+                    "type": "string"
+                },
+                "wlpic": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ImmiCoPlaintiffList": {
+            "type": "object",
+            "properties": {
+                "co_plaintiff": {
+                    "type": "string"
+                },
+                "co_plaintiff_type": {
+                    "type": "integer"
+                },
+                "coplaintiff_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ImmiDocAttachmentList": {
+            "type": "object",
+            "properties": {
+                "doc_attachment": {
+                    "type": "string"
+                },
+                "doc_attachment_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ImmiDocLinkList": {
+            "type": "object",
+            "properties": {
+                "doc_link": {
+                    "type": "string"
+                },
+                "doc_link_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ImmiPlaintiffList": {
+            "type": "object",
+            "properties": {
+                "plaintiff": {
+                    "type": "string"
+                },
+                "plaintiff_id": {
+                    "type": "integer"
+                },
+                "plaintiff_type": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ImmiTempPermits": {
+            "type": "object",
+            "properties": {
+                "notif_doc": {
+                    "type": "string"
+                },
+                "permit_id": {
+                    "type": "integer"
+                },
+                "temp_doc": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Letter": {
+            "type": "object",
+            "properties": {
+                "case_accused": {
+                    "description": "จำเลย",
+                    "type": "string",
+                    "example": "นายจำเลย จำใจ"
+                },
+                "case_black_num": {
+                    "description": "เลขคดีดำ",
+                    "type": "string",
+                    "example": "อ.3461/2561"
+                },
+                "case_charge": {
+                    "description": "ข้อหา",
+                    "type": "string",
+                    "example": "ลัก ขโมย"
+                },
+                "case_co_plaintiff": {
+                    "description": "โจทย์ร่วม",
+                    "type": "string",
+                    "example": "mail@coj.go.th"
+                },
+                "case_co_plaintiff_type": {
+                    "description": "ประเภทโจทย์ร่วม",
+                    "type": "string",
+                    "example": "ประเภทโจทย์ร่วม"
+                },
+                "case_fault_type": {
+                    "description": "ประเภทความ 1=แพ่ง 2=อาญา",
+                    "type": "integer",
+                    "example": 1
+                },
+                "case_fault_type_desc": {
+                    "description": "รายละเอียดประเภทความ",
+                    "type": "object",
+                    "$ref": "#/definitions/models.CaseFaultTypeDesc"
+                },
+                "case_plaintiff": {
+                    "description": "โจทย์",
+                    "type": "string",
+                    "example": "นายโจทย์ ทดสอบ"
+                },
+                "case_plaintiff_type": {
+                    "description": "ประเภทโจทย์",
+                    "type": "string",
+                    "example": "ประเภทโจทย์"
+                },
+                "case_red_num": {
+                    "description": "เลขคดีแดง",
+                    "type": "string",
+                    "example": "อ.3461/2561"
+                },
+                "court_code": {
+                    "description": "รหัสศาล",
+                    "type": "string",
+                    "example": "0000011"
+                },
+                "court_code_desc": {
+                    "description": "รายละเอียดศาล",
+                    "type": "object",
+                    "$ref": "#/definitions/models.Court"
+                },
+                "created_at": {
+                    "description": "วันที่สร้างข้อมูล",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "created_uid": {
+                    "description": "ID ผู้สร้างข้อมูล",
+                    "type": "integer",
+                    "example": 1
+                },
+                "created_uname": {
+                    "description": "ชื่อผู้สร้างข้อมูล",
+                    "type": "string",
+                    "example": "user01"
+                },
+                "deleted_at": {
+                    "description": "วันที่แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "deleted_uid": {
+                    "description": "ID ผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "integer",
+                    "example": 1
+                },
+                "deleted_uname": {
+                    "description": "ชื่อผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "user01"
+                },
+                "file_path": {
+                    "type": "string",
+                    "example": "./xxxxxxx"
+                },
+                "file_path_intra": {
+                    "description": "path ไฟล์",
+                    "type": "string",
+                    "example": "./xxxxxxx"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_accuseds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.LetterAccused"
+                    }
+                },
+                "letter_attactment": {
+                    "description": "สิ่งที่ส่งมาด้วย",
+                    "type": "string",
+                    "example": "สิ่งที่ส่งมาด้วย"
+                },
+                "letter_court_addr": {
+                    "description": "ที่อยู่ศาล",
+                    "type": "string",
+                    "example": "แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900"
+                },
+                "letter_court_name": {
+                    "description": "ชื่อศาล",
+                    "type": "string",
+                    "example": "สำนักเทคโนโลยีสารสนเทศ"
+                },
+                "letter_date": {
+                    "description": "วันที่หนังสือ",
+                    "type": "string",
+                    "example": "2018-09-22T00:00:00Z"
+                },
+                "letter_num": {
+                    "description": "เลขหนังสือ เช่น ปส 1090/2562",
+                    "type": "string",
+                    "example": "ปส 1090/2562"
+                },
+                "letter_office_email": {
+                    "type": "string",
+                    "example": "mail@coj.go.th"
+                },
+                "letter_office_fax": {
+                    "description": "แฟกซ์",
+                    "type": "string",
+                    "example": "0266666"
+                },
+                "letter_office_group": {
+                    "description": "ชื่อส่วนงาน กลุ่มงาน",
+                    "type": "string",
+                    "example": "ระบบงาน"
+                },
+                "letter_office_name": {
+                    "description": "ชื่อสำนักงาน",
+                    "type": "string",
+                    "example": "สำนักเทคโนโลยีสารสนเทศ"
+                },
+                "letter_office_num": {
+                    "description": "เลขที่หนังสือ ศย",
+                    "type": "string",
+                    "example": "ศย102/62"
+                },
+                "letter_office_tel": {
+                    "description": "เบอร์โทร",
+                    "type": "string",
+                    "example": "0255555"
+                },
+                "letter_reference": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_reference_desc": {
+                    "description": "รายละเอียดศาล                                                                      // เลขที่อ้างอิง (FK: letter id)",
+                    "type": "object",
+                    "$ref": "#/definitions/models.LetterReferenceDesc"
+                },
+                "letter_signed_name": {
+                    "description": "ชื่อผู้เซ็น",
+                    "type": "string",
+                    "example": "ชื่อผู้เซ็นต์"
+                },
+                "letter_signed_position": {
+                    "description": "ตำแหน่งผู้เซ็น",
+                    "type": "string",
+                    "example": "ตำแหน่งผู้เซ็น"
+                },
+                "letter_subject": {
+                    "description": "เรื่อง",
+                    "type": "string",
+                    "example": "เรื่อง ทดสอบ"
+                },
+                "letter_to": {
+                    "description": "เรียน",
+                    "type": "string",
+                    "example": "เรียน ทดสอบ"
+                },
+                "letter_type": {
+                    "description": "ประเภทหนังสือ",
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_type_desc": {
+                    "description": "รายละเอียดประเภทหนังสือ",
+                    "type": "object",
+                    "$ref": "#/definitions/models.LetterTypeDesc"
+                },
+                "send_type": {
+                    "description": "ประเภทการส่งข้อมูลไป ตม.",
+                    "type": "string",
+                    "example": "WAIT"
+                },
+                "updated_at": {
+                    "description": "วันที่แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "updated_uid": {
+                    "description": "ID ผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_uname": {
+                    "description": "ชื่อผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "user01"
+                }
+            }
+        },
+        "models.LetterAccused": {
+            "type": "object",
+            "properties": {
+                "accused": {
+                    "type": "object",
+                    "$ref": "#/definitions/models.Accused"
+                },
+                "accused_id": {
+                    "description": "จำเลย",
+                    "type": "integer",
+                    "example": 1
+                },
+                "allow_date_end": {
+                    "description": "วันที่สิ้นสุดการอนุญาต",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "allow_date_start": {
+                    "description": "วันที่เริ่มอนุญาต",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "created_at": {
+                    "description": "วันที่สร้างข้อมูล",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "destination_country": {
+                    "description": "ประเทศปลายทาง",
+                    "type": "string",
+                    "example": "โคลอมเบีย"
+                },
+                "letter_id": {
+                    "description": "ID คำสั่งห้ามฯ",
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_type": {
+                    "description": "ประเภทหนังสือ",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_at": {
+                    "description": "วันที่แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                }
+            }
+        },
+        "models.LetterReferenceDesc": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_num": {
+                    "description": "เลขหนังสือ เช่น ปส 1090/2562",
+                    "type": "string",
+                    "example": "ปส 1090/2562"
+                }
+            }
+        },
+        "models.LetterTypeDesc": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "ชื่อประเภท",
+                    "type": "string",
+                    "example": "คำสั่งห้ามออกนอกราชอาณาจักร"
+                }
+            }
+        },
+        "models.ReportLetter": {
+            "type": "object",
+            "properties": {
+                "court_code": {
+                    "description": "รหัสศาล",
+                    "type": "string",
+                    "example": "0000011"
+                },
+                "month": {
+                    "description": "เดือน",
+                    "type": "string",
+                    "example": "01"
+                },
+                "total": {
+                    "description": "จำนวนคำสั่งทั้งหมด",
+                    "type": "integer",
+                    "example": 3
+                },
+                "type1": {
+                    "description": "จำนวนคำสั่งห้ามออกนอกราชอาณาจักร",
+                    "type": "integer",
+                    "example": 1
+                },
+                "type2": {
+                    "description": "จำนวนคำสั่งอนุญาตออกนอกประเทศชั่วคราว",
+                    "type": "integer",
+                    "example": 1
+                },
+                "type3": {
+                    "description": "จำนวนคำสั่งเพิกถอนคำสั่งห้ามออกนอกราชอาณาจักร",
+                    "type": "integer",
+                    "example": 1
+                },
+                "year": {
+                    "description": "ปี",
+                    "type": "string",
+                    "example": "2019"
+                }
+            }
+        },
+        "models.Setting": {
+            "type": "object",
+            "properties": {
+                "court_addr": {
+                    "description": "ที่อยู่ของศาล",
+                    "type": "string",
+                    "example": "อาคารศาลอาญา ถนนรัชดาภิเษก แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900"
+                },
+                "court_code": {
+                    "description": "รหัสศาล",
+                    "type": "string",
+                    "example": "0000011"
+                },
+                "court_name": {
+                    "description": "ชื่อศาล",
+                    "type": "string",
+                    "example": "สำนักเทคโนโลยีสารสนเทศ"
+                },
+                "created_at": {
+                    "description": "วันที่สร้างข้อมูล",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "created_uid": {
+                    "description": "ID ผู้สร้างข้อมูล",
+                    "type": "integer",
+                    "example": 1
+                },
+                "created_uname": {
+                    "description": "ชื่อผู้สร้างข้อมูล",
+                    "type": "string",
+                    "example": "user01"
+                },
+                "id": {
+                    "description": "ID",
+                    "type": "integer",
+                    "example": 1
+                },
+                "letter_court_num": {
+                    "description": "เลขที่หนังสือ ศย",
+                    "type": "string",
+                    "example": "ศย102/62"
+                },
+                "letter_email": {
+                    "description": "อีเมล์ในหนังสือ",
+                    "type": "string",
+                    "example": "mail@coj.go.th"
+                },
+                "letter_fax": {
+                    "description": "แฟกซ์ในหนังสือ",
+                    "type": "string",
+                    "example": "0266666"
+                },
+                "letter_group_name": {
+                    "description": "ชื่อกลุ่มงานในหนังสือ",
+                    "type": "string",
+                    "example": "ระบบงาน"
+                },
+                "letter_office_name": {
+                    "description": "ชื่อหน่วยงานในหนังสือ",
+                    "type": "string",
+                    "example": "สำนักเทคโนโลยีสารสนเทศ"
+                },
+                "letter_signed_name": {
+                    "description": "ชื่อผู้เซ็นในหนังสือ",
+                    "type": "string",
+                    "example": "นายลายเซ็น หนังสือ"
+                },
+                "letter_signed_position": {
+                    "description": "ตำแหน่งผู้เซ็นในหนังสือ",
+                    "type": "string",
+                    "example": "นักวิจัดการงานทั่วไปชำนาญการ"
+                },
+                "letter_tel": {
+                    "description": "เบอร์โทรในหนังสือ",
+                    "type": "string",
+                    "example": "0255555"
+                },
+                "setting_name": {
+                    "description": "ชื่อการตั้งค่าหนังสือ",
+                    "type": "string",
+                    "example": "ตั้งค่า 1"
+                },
+                "updated_at": {
+                    "description": "วันที่แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "2019-10-15T14:01:58+07:00"
+                },
+                "updated_uid": {
+                    "description": "ID ผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_uname": {
+                    "description": "ชื่อผู้แก้ไขข้อมูลล่าสุด",
+                    "type": "string",
+                    "example": "user01"
+                }
+            }
+        },
+        "routers.HealthcheckModels": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "wlis service is online"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 200
+                }
+            }
+        }
+    }
+}

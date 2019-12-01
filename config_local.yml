@@ -1,0 +1,14 @@
+database:
+  driver: "mysql"
+  dbname: "db_rss"
+  username: "root"
+  password: "cojDBP@$$w0rd"
+  host: "127.0.0.1"
+  port: "3306"
+
+server:
+  port: "8000"
+
+gateway:
+  ip: "http://localhost"
+  ipIntra: "http://localhost"

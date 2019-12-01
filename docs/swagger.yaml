@@ -1,0 +1,1073 @@
+basePath: /api/v1
+definitions:
+  models.Accused:
+    properties:
+      birth_date:
+        description: วันเกิด
+        example: "1990-09-22T00:00:00Z"
+        type: string
+      created_at:
+        description: วันที่สร้างข้อมูล
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      display_name:
+        description: ID
+        example: นายจำเลย เลยจำ
+        type: string
+      en_first_name:
+        description: ชื่อจำเลย ภาษาอังกฤษ
+        example: accused
+        type: string
+      en_last_name:
+        description: นามสกุล ภาษาอังกฤษ
+        example: lastname
+        type: string
+      en_middle_name:
+        description: ชื่อกลาง ภาษาอังกฤษ
+        example: de
+        type: string
+      en_title_name:
+        description: คำนำหน้าชื่อ ภาษาอังกฤษ
+        example: Mr.
+        type: string
+      id:
+        example: 1
+        type: integer
+      id_card_num:
+        description: เลขบัตร
+        example: "1234567890123"
+        type: string
+      id_card_type:
+        description: ประเภทบัตร 1=บัตรประชาชน 2=หนังสือเดินทาง
+        example: 1
+        type: integer
+      id_card_type_desc:
+        $ref: '#/definitions/models.IdCardTypeDesc'
+        description: รายละเอียดประเภทบัตร
+        type: object
+      nationality:
+        description: สัญชาติ
+        example: ไทย
+        type: string
+      seq:
+        description: ลำดับ - จำเลยที่ 1
+        example: จำเลยที่ 1
+        type: string
+      sex:
+        description: เพศ M=ชาย F=หญิง
+        example: M
+        type: string
+      th_first_name:
+        description: ชื่อจำเลย ภาษาไทย
+        example: จำเลย
+        type: string
+      th_last_name:
+        description: นามสกุล ภาษาไทย
+        example: สกุล
+        type: string
+      th_middle_name:
+        description: ชื่อกลาง ภาษาไทย
+        example: เดอ
+        type: string
+      th_title_name:
+        description: คำนำหน้าชื่อ ภาษาไทย
+        example: นาย
+        type: string
+      updated_at:
+        description: วันที่แก้ไขข้อมูลล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+    type: object
+  models.AppConfig:
+    properties:
+      app_date:
+        description: วันที่แก้ไขล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      app_name:
+        description: ชื่อโปรแกรม
+        example: My App
+        type: string
+      app_version:
+        description: version
+        example: "1.0"
+        type: string
+    type: object
+  models.CaseFaultTypeDesc:
+    properties:
+      id:
+        description: ID
+        example: 1
+        type: integer
+      name:
+        description: ประเภทความ
+        example: อาญา
+        type: string
+    type: object
+  models.Court:
+    properties:
+      court_code:
+        description: รหัสศาล
+        example: "0000011"
+        type: string
+      department_id:
+        description: รหัสภาค
+        example: 1
+        type: integer
+      name:
+        description: ชื่อศาล
+        example: ชื่อศาล
+        type: string
+    type: object
+  models.DataImmi:
+    properties:
+      data:
+        description: ข้อมูล
+        items:
+          $ref: '#/definitions/models.Immi'
+        type: array
+      status:
+        description: รหัสสถานะการเรียก service
+        example: 200
+        type: integer
+      total:
+        description: จำนวน Rows ทั้งหมด
+        example: 1
+        type: integer
+    type: object
+  models.DataLetter:
+    properties:
+      data:
+        description: ข้อมูล
+        items:
+          $ref: '#/definitions/models.Letter'
+        type: array
+      status:
+        description: รหัสสถานะการเรียก service
+        example: 200
+        type: integer
+      total:
+        description: จำนวน Rows ทั้งหมด
+        example: 1
+        type: integer
+    type: object
+  models.DataSetting:
+    properties:
+      data:
+        description: ข้อมูล
+        items:
+          $ref: '#/definitions/models.Setting'
+        type: array
+      status:
+        description: รหัสสถานะการเรียก service
+        example: 200
+        type: integer
+      total:
+        description: จำนวน Rows ทั้งหมด
+        example: 1
+        type: integer
+    type: object
+  models.DefaultMessage:
+    properties:
+      message:
+        example: message example
+        type: string
+      status:
+        example: 200
+        type: integer
+    type: object
+  models.IdCardTypeDesc:
+    properties:
+      id:
+        description: ID
+        example: 1
+        type: integer
+      name:
+        description: ประเภทบัตร
+        example: บัตรประชาขน
+        type: string
+    type: object
+  models.Immi:
+    properties:
+      accused_list:
+        items:
+          $ref: '#/definitions/models.ImmiAccusedList'
+        type: array
+      black_no:
+        description: เลขคดีดำ
+        type: string
+      charge:
+        example: ลัก ขโมย
+        type: string
+      co_plaintiff_list:
+        items:
+          $ref: '#/definitions/models.ImmiCoPlaintiffList'
+        type: array
+      country:
+        type: string
+      court_code:
+        type: string
+      doc_attachment_list:
+        items:
+          $ref: '#/definitions/models.ImmiDocAttachmentList'
+        type: array
+      doc_link_list:
+        description: ImmiWlpicList         []ImmiWlpicList         `json:"wlpic_list"
+          `
+        items:
+          $ref: '#/definitions/models.ImmiDocLinkList'
+        type: array
+      fault_type:
+        example: 1
+        type: integer
+      id:
+        description: id
+        type: integer
+      office_phone:
+        type: string
+      officer_name:
+        type: string
+      permit_end_date:
+        type: string
+      permit_start_date:
+        type: string
+      plaintiff_list:
+        items:
+          $ref: '#/definitions/models.ImmiPlaintiffList'
+        type: array
+      red_no:
+        description: เลขคดีแดง
+        type: string
+      ref_no_two:
+        description: หมำยเลขหนังสืออ้ำงอิง - เลขหนังสือ
+        type: string
+      start_command_date:
+        type: string
+      status:
+        type: integer
+      temp_permits:
+        items:
+          $ref: '#/definitions/models.ImmiTempPermits'
+        type: array
+    type: object
+  models.ImmiAccusedList:
+    properties:
+      accused_en_firstname:
+        type: string
+      accused_en_lastname:
+        type: string
+      accused_en_middlename:
+        type: string
+      accused_id:
+        type: integer
+      accused_id_card:
+        type: string
+      accused_th_firstname:
+        type: string
+      accused_th_lastname:
+        type: string
+      accused_th_middlename:
+        type: string
+      birth_date:
+        type: string
+      birth_month:
+        type: string
+      birth_year:
+        type: string
+      document_type:
+        type: integer
+      nationality_code:
+        type: string
+      sex:
+        type: string
+      wlpic:
+        type: string
+    type: object
+  models.ImmiCoPlaintiffList:
+    properties:
+      co_plaintiff:
+        type: string
+      co_plaintiff_type:
+        type: integer
+      coplaintiff_id:
+        type: integer
+    type: object
+  models.ImmiDocAttachmentList:
+    properties:
+      doc_attachment:
+        type: string
+      doc_attachment_id:
+        type: integer
+    type: object
+  models.ImmiDocLinkList:
+    properties:
+      doc_link:
+        type: string
+      doc_link_id:
+        type: integer
+    type: object
+  models.ImmiPlaintiffList:
+    properties:
+      plaintiff:
+        type: string
+      plaintiff_id:
+        type: integer
+      plaintiff_type:
+        type: integer
+    type: object
+  models.ImmiTempPermits:
+    properties:
+      notif_doc:
+        type: string
+      permit_id:
+        type: integer
+      temp_doc:
+        type: string
+    type: object
+  models.Letter:
+    properties:
+      case_accused:
+        description: จำเลย
+        example: นายจำเลย จำใจ
+        type: string
+      case_black_num:
+        description: เลขคดีดำ
+        example: อ.3461/2561
+        type: string
+      case_charge:
+        description: ข้อหา
+        example: ลัก ขโมย
+        type: string
+      case_co_plaintiff:
+        description: โจทย์ร่วม
+        example: mail@coj.go.th
+        type: string
+      case_co_plaintiff_type:
+        description: ประเภทโจทย์ร่วม
+        example: ประเภทโจทย์ร่วม
+        type: string
+      case_fault_type:
+        description: ประเภทความ 1=แพ่ง 2=อาญา
+        example: 1
+        type: integer
+      case_fault_type_desc:
+        $ref: '#/definitions/models.CaseFaultTypeDesc'
+        description: รายละเอียดประเภทความ
+        type: object
+      case_plaintiff:
+        description: โจทย์
+        example: นายโจทย์ ทดสอบ
+        type: string
+      case_plaintiff_type:
+        description: ประเภทโจทย์
+        example: ประเภทโจทย์
+        type: string
+      case_red_num:
+        description: เลขคดีแดง
+        example: อ.3461/2561
+        type: string
+      court_code:
+        description: รหัสศาล
+        example: "0000011"
+        type: string
+      court_code_desc:
+        $ref: '#/definitions/models.Court'
+        description: รายละเอียดศาล
+        type: object
+      created_at:
+        description: วันที่สร้างข้อมูล
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      created_uid:
+        description: ID ผู้สร้างข้อมูล
+        example: 1
+        type: integer
+      created_uname:
+        description: ชื่อผู้สร้างข้อมูล
+        example: user01
+        type: string
+      deleted_at:
+        description: วันที่แก้ไขข้อมูลล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      deleted_uid:
+        description: ID ผู้แก้ไขข้อมูลล่าสุด
+        example: 1
+        type: integer
+      deleted_uname:
+        description: ชื่อผู้แก้ไขข้อมูลล่าสุด
+        example: user01
+        type: string
+      file_path:
+        example: ./xxxxxxx
+        type: string
+      file_path_intra:
+        description: path ไฟล์
+        example: ./xxxxxxx
+        type: string
+      id:
+        description: ID
+        example: 1
+        type: integer
+      letter_accuseds:
+        items:
+          $ref: '#/definitions/models.LetterAccused'
+        type: array
+      letter_attactment:
+        description: สิ่งที่ส่งมาด้วย
+        example: สิ่งที่ส่งมาด้วย
+        type: string
+      letter_court_addr:
+        description: ที่อยู่ศาล
+        example: แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900
+        type: string
+      letter_court_name:
+        description: ชื่อศาล
+        example: สำนักเทคโนโลยีสารสนเทศ
+        type: string
+      letter_date:
+        description: วันที่หนังสือ
+        example: "2018-09-22T00:00:00Z"
+        type: string
+      letter_num:
+        description: เลขหนังสือ เช่น ปส 1090/2562
+        example: ปส 1090/2562
+        type: string
+      letter_office_email:
+        example: mail@coj.go.th
+        type: string
+      letter_office_fax:
+        description: แฟกซ์
+        example: "0266666"
+        type: string
+      letter_office_group:
+        description: ชื่อส่วนงาน กลุ่มงาน
+        example: ระบบงาน
+        type: string
+      letter_office_name:
+        description: ชื่อสำนักงาน
+        example: สำนักเทคโนโลยีสารสนเทศ
+        type: string
+      letter_office_num:
+        description: เลขที่หนังสือ ศย
+        example: ศย102/62
+        type: string
+      letter_office_tel:
+        description: เบอร์โทร
+        example: "0255555"
+        type: string
+      letter_reference:
+        example: 1
+        type: integer
+      letter_reference_desc:
+        $ref: '#/definitions/models.LetterReferenceDesc'
+        description: 'รายละเอียดศาล                                                                      //
+          เลขที่อ้างอิง (FK: letter id)'
+        type: object
+      letter_signed_name:
+        description: ชื่อผู้เซ็น
+        example: ชื่อผู้เซ็นต์
+        type: string
+      letter_signed_position:
+        description: ตำแหน่งผู้เซ็น
+        example: ตำแหน่งผู้เซ็น
+        type: string
+      letter_subject:
+        description: เรื่อง
+        example: เรื่อง ทดสอบ
+        type: string
+      letter_to:
+        description: เรียน
+        example: เรียน ทดสอบ
+        type: string
+      letter_type:
+        description: ประเภทหนังสือ
+        example: 1
+        type: integer
+      letter_type_desc:
+        $ref: '#/definitions/models.LetterTypeDesc'
+        description: รายละเอียดประเภทหนังสือ
+        type: object
+      send_type:
+        description: ประเภทการส่งข้อมูลไป ตม.
+        example: WAIT
+        type: string
+      updated_at:
+        description: วันที่แก้ไขข้อมูลล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      updated_uid:
+        description: ID ผู้แก้ไขข้อมูลล่าสุด
+        example: 1
+        type: integer
+      updated_uname:
+        description: ชื่อผู้แก้ไขข้อมูลล่าสุด
+        example: user01
+        type: string
+    type: object
+  models.LetterAccused:
+    properties:
+      accused:
+        $ref: '#/definitions/models.Accused'
+        type: object
+      accused_id:
+        description: จำเลย
+        example: 1
+        type: integer
+      allow_date_end:
+        description: วันที่สิ้นสุดการอนุญาต
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      allow_date_start:
+        description: วันที่เริ่มอนุญาต
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      created_at:
+        description: วันที่สร้างข้อมูล
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      destination_country:
+        description: ประเทศปลายทาง
+        example: โคลอมเบีย
+        type: string
+      letter_id:
+        description: ID คำสั่งห้ามฯ
+        example: 1
+        type: integer
+      letter_type:
+        description: ประเภทหนังสือ
+        example: 1
+        type: integer
+      updated_at:
+        description: วันที่แก้ไขข้อมูลล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+    type: object
+  models.LetterReferenceDesc:
+    properties:
+      id:
+        description: ID
+        example: 1
+        type: integer
+      letter_num:
+        description: เลขหนังสือ เช่น ปส 1090/2562
+        example: ปส 1090/2562
+        type: string
+    type: object
+  models.LetterTypeDesc:
+    properties:
+      id:
+        description: ID
+        example: 1
+        type: integer
+      name:
+        description: ชื่อประเภท
+        example: คำสั่งห้ามออกนอกราชอาณาจักร
+        type: string
+    type: object
+  models.ReportLetter:
+    properties:
+      court_code:
+        description: รหัสศาล
+        example: "0000011"
+        type: string
+      month:
+        description: เดือน
+        example: "01"
+        type: string
+      total:
+        description: จำนวนคำสั่งทั้งหมด
+        example: 3
+        type: integer
+      type1:
+        description: จำนวนคำสั่งห้ามออกนอกราชอาณาจักร
+        example: 1
+        type: integer
+      type2:
+        description: จำนวนคำสั่งอนุญาตออกนอกประเทศชั่วคราว
+        example: 1
+        type: integer
+      type3:
+        description: จำนวนคำสั่งเพิกถอนคำสั่งห้ามออกนอกราชอาณาจักร
+        example: 1
+        type: integer
+      year:
+        description: ปี
+        example: "2019"
+        type: string
+    type: object
+  models.Setting:
+    properties:
+      court_addr:
+        description: ที่อยู่ของศาล
+        example: อาคารศาลอาญา ถนนรัชดาภิเษก แขวงจอมพล เขตจตุจักร กรุงเทพฯ 10900
+        type: string
+      court_code:
+        description: รหัสศาล
+        example: "0000011"
+        type: string
+      court_name:
+        description: ชื่อศาล
+        example: สำนักเทคโนโลยีสารสนเทศ
+        type: string
+      created_at:
+        description: วันที่สร้างข้อมูล
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      created_uid:
+        description: ID ผู้สร้างข้อมูล
+        example: 1
+        type: integer
+      created_uname:
+        description: ชื่อผู้สร้างข้อมูล
+        example: user01
+        type: string
+      id:
+        description: ID
+        example: 1
+        type: integer
+      letter_court_num:
+        description: เลขที่หนังสือ ศย
+        example: ศย102/62
+        type: string
+      letter_email:
+        description: อีเมล์ในหนังสือ
+        example: mail@coj.go.th
+        type: string
+      letter_fax:
+        description: แฟกซ์ในหนังสือ
+        example: "0266666"
+        type: string
+      letter_group_name:
+        description: ชื่อกลุ่มงานในหนังสือ
+        example: ระบบงาน
+        type: string
+      letter_office_name:
+        description: ชื่อหน่วยงานในหนังสือ
+        example: สำนักเทคโนโลยีสารสนเทศ
+        type: string
+      letter_signed_name:
+        description: ชื่อผู้เซ็นในหนังสือ
+        example: นายลายเซ็น หนังสือ
+        type: string
+      letter_signed_position:
+        description: ตำแหน่งผู้เซ็นในหนังสือ
+        example: นักวิจัดการงานทั่วไปชำนาญการ
+        type: string
+      letter_tel:
+        description: เบอร์โทรในหนังสือ
+        example: "0255555"
+        type: string
+      setting_name:
+        description: ชื่อการตั้งค่าหนังสือ
+        example: ตั้งค่า 1
+        type: string
+      updated_at:
+        description: วันที่แก้ไขข้อมูลล่าสุด
+        example: "2019-10-15T14:01:58+07:00"
+        type: string
+      updated_uid:
+        description: ID ผู้แก้ไขข้อมูลล่าสุด
+        example: 1
+        type: integer
+      updated_uname:
+        description: ชื่อผู้แก้ไขข้อมูลล่าสุด
+        example: user01
+        type: string
+    type: object
+  routers.HealthcheckModels:
+    properties:
+      message:
+        example: wlis service is online
+        type: string
+      status:
+        example: 200
+        type: integer
+    type: object
+host: 10.1.2.124:9005
+info:
+  contact: {}
+  description: Rest API document of Watchlist Information System
+  license: {}
+  termsOfService: COJ-App Team
+  title: Watchlist Information System API
+  version: "1.0"
+paths:
+  /healthcheck:
+    get:
+      consumes:
+      - application/json
+      description: ตรวจสอบสถานะการ online ของระบบ
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routers.HealthcheckModels'
+      summary: ตรวจสอบสถานะการ online ของระบบ
+      tags:
+      - Healthcheck API
+  /immi:
+    get:
+      consumes:
+      - application/json
+      description: recheck คำสั่งห้ามฯ ตามวันที่สร้างหรือแก้ไขคำสั่งห้ามฯ
+      parameters:
+      - description: วันที่สร้างหรือแก้ไขคำสั่งห้ามฯ
+        in: query
+        name: updated_at
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DataImmi'
+      summary: ค้นหาคำสั่งห้ามฯ ตามวันที่สร้างหรือแก้ไขคำสั่งห้ามฯ
+      tags:
+      - ตม.ค้นหาคำสั่งฯ
+  /letter:
+    get:
+      consumes:
+      - application/json
+      description: เรียกดูรายการคำสั่งห้ามฯฯ
+      parameters:
+      - description: รหัสศาล
+        in: query
+        name: court_code
+        type: string
+      - description: เลขบัตรประชาชนหรือหนังสือเดินทาง
+        in: query
+        name: id_card
+        type: string
+      - description: ชื่อ นามสกุล Ex. จำเลย เลยจำ
+        in: query
+        name: name
+        type: string
+      - description: เลขที่หนังสือ
+        in: query
+        name: letter_num
+        type: string
+      - description: ช่วงวันที่ออกหนังสือ - เริ่มต้น
+        in: query
+        name: d_start
+        type: string
+      - description: ช่วงวันที่ออกหนังสือ - สิ้นสุด
+        in: query
+        name: d_end
+        type: string
+      - description: เลขคดีดำ
+        in: query
+        name: case_black
+        type: string
+      - description: ประเภทหนังสือ
+        in: query
+        name: letter_type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DataLetter'
+      summary: เรียกดูรายการคำสั่งห้ามฯฯ
+      tags:
+      - คำสั่งห้ามฯ
+    post:
+      consumes:
+      - application/json
+      description: เพิ่มข้อมูลคำสั่งห้ามฯ <br>*** Required <br>"court_code", "letter_num",
+        "created_uid", "created_uname"
+      parameters:
+      - description: Create Letter
+        in: body
+        name: letter
+        required: true
+        schema:
+          $ref: '#/definitions/models.Letter'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Letter'
+      summary: เพิ่มข้อมูลคำสั่งห้ามฯ
+      tags:
+      - คำสั่งห้ามฯ
+  /letter/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: ลบข้อมูลคำสั่งห้ามฯ <br><br>*** Required json <br>"deleted_uid",
+        "deleted_uname"
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DefaultMessage'
+      summary: ลบข้อมูลคำสั่งห้ามฯ
+      tags:
+      - คำสั่งห้ามฯ
+    get:
+      consumes:
+      - application/json
+      description: ดูข้อมูลคำสั่งห้ามฯ
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Letter'
+      summary: ดูข้อมูลคำสั่งห้ามฯฯ
+      tags:
+      - คำสั่งห้ามฯ
+    patch:
+      consumes:
+      - application/json
+      description: อัพโหลดไฟล์คำสั่งห้ามฯ <br>*** Required <br><br>"court_code", "letter_num",
+        "updated_uid", "updated_uname"
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: รหัสศาล
+        in: formData
+        name: court_code
+        required: true
+        type: string
+      - description: เลขที่หนังสือ
+        in: formData
+        name: letter_num
+        required: true
+        type: string
+      - description: ID ผู้แก้ไขข้อมูล
+        in: formData
+        name: updated_uid
+        required: true
+        type: string
+      - description: ชื่อผู้แก้ไขข้อมูล
+        in: formData
+        name: updated_uname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DefaultMessage'
+      summary: อัพโหลดไฟล์คำสั่งห้ามฯ
+      tags:
+      - คำสั่งห้ามฯ
+    put:
+      consumes:
+      - application/json
+      description: แก้ไขข้อมูลคำสั่งห้ามฯ <br>*** Required <br>"updated_uid", "updated_uname"
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Letter
+        in: body
+        name: letter
+        required: true
+        schema:
+          $ref: '#/definitions/models.Letter'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Letter'
+      summary: แก้ไขข้อมูลคำสั่งห้ามฯ
+      tags:
+      - คำสั่งห้ามฯ
+  /report/permonth:
+    get:
+      consumes:
+      - application/json
+      description: รายงานคำสั่งห้ามฯ รายเดือน
+      parameters:
+      - description: รหัสศาล
+        in: query
+        name: court_code
+        type: string
+      - description: ปี ex 2018
+        in: query
+        name: year
+        type: string
+      - description: เดือน ex 09
+        in: query
+        name: month
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ReportLetter'
+      summary: รายงานคำสั่งห้ามฯ รายเดือน
+      tags:
+      - รายงาน
+  /setting:
+    get:
+      consumes:
+      - application/json
+      description: เรียกดูรายการตั้งค่าหนังสือของศาล
+      parameters:
+      - description: รหัสศาล
+        in: query
+        name: court_code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DataSetting'
+      summary: เรียกดูรายการตั้งค่าหนังสือ
+      tags:
+      - ตั้งค่าหนังสือ
+    post:
+      consumes:
+      - application/json
+      description: เพิ่มข้อมูลการตั้งค่าหนังสือ <br>*** Required <br>"court_code",
+        "setting_name", "created_uid", "created_uname"
+      parameters:
+      - description: Create Setting
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/models.Setting'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Setting'
+      summary: เพิ่มข้อมูลการตั้งค่าหนังสือ
+      tags:
+      - ตั้งค่าหนังสือ
+  /setting/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: ลบข้อมูลการตั่งค่าหนังสือ
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DefaultMessage'
+      summary: ลบข้อมูลการตั้งค่าหนังสือ
+      tags:
+      - ตั้งค่าหนังสือ
+    get:
+      consumes:
+      - application/json
+      description: ดูข้อมูลการตั้งค่าหนังสือของศาล
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Setting'
+      summary: ดูข้อมูลการตั้งค่าหนังสือ
+      tags:
+      - ตั้งค่าหนังสือ
+    put:
+      consumes:
+      - application/json
+      description: แก้ไขข้อมูลการตั่งค่าหนังสือ <br>*** Required <br>"updated_uid",
+        "updated_uname"
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Setting
+        in: body
+        name: setting
+        required: true
+        schema:
+          $ref: '#/definitions/models.Setting'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Setting'
+      summary: แก้ไขข้อมูลการตั้งค่าหนังสือ
+      tags:
+      - ตั้งค่าหนังสือ
+  /ver:
+    get:
+      consumes:
+      - application/json
+      description: ดูข้อมูลการตั้งค่าโปรแกรม
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AppConfig'
+      summary: ดูข้อมูลการตั้งค่าโปรแกรม
+      tags:
+      - ตั้งค่าโปรแกรม
+swagger: "2.0"
